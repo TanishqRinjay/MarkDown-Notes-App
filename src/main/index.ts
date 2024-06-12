@@ -3,6 +3,8 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+const isMac = process.platform === 'darwin'
+
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -10,10 +12,20 @@ function createWindow(): void {
     height: 670,
     show: false,
     autoHideMenuBar: true,
+    frame: !isMac,
+    vibrancy: 'under-window',
+    visualEffectState: 'active',
+    // isMac ? 'isHidden' : 'default'
+    // titleBarStyle: 'default',
+    ...(isMac ? { trafficLightPosition: { x: 15, y: 10 } } : {}),
     ...(process.platform === 'linux' ? { icon } : {}),
+    center: true,
+    title: 'MarkDown Notes',
+
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: true,
+      contextIsolation: true
     }
   })
 
