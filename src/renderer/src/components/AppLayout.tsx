@@ -1,4 +1,4 @@
-import { Component, ComponentProps, forwardRef } from 'react'
+import { ComponentProps, forwardRef } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export const RootLayout = ({ className, children, ...props }: ComponentProps<'div'>) => {

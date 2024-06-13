@@ -15,6 +15,7 @@ function createWindow(): void {
     frame: !isMac,
     vibrancy: 'under-window',
     visualEffectState: 'active',
+    backgroundMaterial: 'acrylic',
     // isMac ? 'isHidden' : 'default'
     // titleBarStyle: 'default',
     ...(isMac ? { trafficLightPosition: { x: 15, y: 10 } } : {}),

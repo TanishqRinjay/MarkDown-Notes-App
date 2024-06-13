@@ -1,16 +1,15 @@
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
-if(!process.contextIsolated) {
+if (!process.contextIsolated) {
   throw new Error('contextIsolation must be enabled')
 }
 
-
 // Expose protected methods that allow the renderer process to use(the frontend)
-try{
+try {
   contextBridge.exposeInMainWorld('context', {
-
+    locale: navigator.language
   })
-}catch(error){
-
+} catch (error) {
+  console.error(error)
 }
