@@ -5,13 +5,15 @@ import {
   ActionButtonsRow,
   NotePreviewList,
   MarkdownEditor,
-  FloatingNoteTitle
+  FloatingNoteTitle,
+  DraggableTopBar
 } from '@/components'
 
 const App = () => {
   return (
     <>
       <RootLayout>
+        <DraggableTopBar />
         <SideBar className="p-2 bg-zinc-800/70">
           <ActionButtonsRow className="flex justify-between mt-1 w-full" />
           <NotePreviewList className="mt-3 space-y-1 " />
