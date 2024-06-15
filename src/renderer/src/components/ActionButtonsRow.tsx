@@ -2,9 +2,9 @@ import { DeleteNoteButton, NewNoteButton } from '@/components'
 import { cn } from '@renderer/utils'
 import { ComponentProps } from 'react'
 
-export const ActionButtonsRow = ({ className, ...props }: ComponentProps<'div'>) => {
+export const ActionButtonsRow = ({ ...props }: ComponentProps<'div'>) => {
   return (
-    <div {...props} className={cn(className)}>
+    <div {...props}>
       <NewNoteButton />
       <DeleteNoteButton />
     </div>
