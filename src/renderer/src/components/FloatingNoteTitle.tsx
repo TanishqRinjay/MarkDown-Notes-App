@@ -1,15 +1,15 @@
 import { selectedNoteAtom } from '@renderer/store'
-import { cn } from '@renderer/utils'
 import { useAtomValue } from 'jotai'
+import { cn } from '@renderer/utils'
 import { ComponentProps } from 'react'
 
-export const FloatingNoteTitle = ({ className, ...props }: ComponentProps<'div'>) => {
+export const FloatingNoteTitle = ({ ...props }: ComponentProps<'div'>) => {
   const selectedNote = useAtomValue(selectedNoteAtom)
   if (!selectedNote) return null
 
   return (
-    <div className={cn('flex justify-center', className)} {...props}>
-      <span className=" text-gray-400">{selectedNote.title}</span>
+    <div className="h-8 w-full bg-zinc-900 flex justify-center items-center" {...props}>
+      <span className=" text-gray-400">{selectedNote != null ? selectedNote.title : ''}</span>
     </div>
   )
 }

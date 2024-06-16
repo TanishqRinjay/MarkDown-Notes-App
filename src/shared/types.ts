@@ -5,3 +5,7 @@ export type ReadNote = (title: NoteInfo['title']) => Promise<NoteContent>
 export type WriteNote = (title: NoteInfo['title'], content: NoteContent) => Promise<void>
 export type CreateNote = () => Promise<NoteInfo['title'] | false>
 export type DeleteNote = (title: NoteInfo['title']) => Promise<boolean>
+export type IsMac = () => Promise<boolean>
+export type CloseApp = () => void
+export type MinimizeWindow = () => void
+export type MaximizeOrRestoreWindow = () => void

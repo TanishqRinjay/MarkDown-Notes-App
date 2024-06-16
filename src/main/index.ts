@@ -14,12 +14,11 @@ function createWindow(): void {
     height: 670,
     show: false,
     autoHideMenuBar: true,
-    frame: !isMac,
+    frame: false,
     vibrancy: 'under-window',
     visualEffectState: 'active',
     backgroundMaterial: 'acrylic',
-    // isMac ? 'isHidden' : 'default'
-    titleBarStyle: 'default',
+    titleBarStyle: 'hidden',
     ...(isMac ? { trafficLightPosition: { x: 15, y: 10 } } : {}),
     ...(process.platform === 'linux' ? { icon } : {}),
     center: true,
@@ -48,6 +47,38 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  ipcMain.on('close-app', () => {
+    if (mainWindow) {
+      mainWindow.close()
+    }
+  })
+
+  ipcMain.on('minimize-window', () => {
+    if (mainWindow) {
+      mainWindow.minimize()
+    }
+  })
+
+  ipcMain.on('maximize-restore-window', () => {
+    if (mainWindow) {
+      if (mainWindow.isMaximized()) {
+        mainWindow.restore()
+        applyVisualEffects(mainWindow)
+      } else {
+        mainWindow.maximize()
+        applyVisualEffects(mainWindow)
+      }
+    }
+  })
+
+  // Apply initial visual effect settings
+}
+
+function applyVisualEffects(window) {
+  window.setBackgroundMaterial('acrylic') // Apply acrylic effect
+  window.setVibrancy('under-window') // Apply vibrancy effect
+  // window.setVisualEffectState('active') // Ensure visual effects are active
 }
 
 // This method will be called when Electron has finished
@@ -71,6 +102,10 @@ app.whenReady().then(() => {
   ipcMain.handle('writeNote', (_, ...args: Parameters<WriteNote>) => writeNote(...args))
   ipcMain.handle('createNote', (_, ...args: Parameters<CreateNote>) => createNote(...args))
   ipcMain.handle('deleteNote', (_, ...args: Parameters<DeleteNote>) => deleteNote(...args))
+
+  ipcMain.handle('get-is-mac', async () => {
+    return isMac
+  })
 
   createWindow()
 

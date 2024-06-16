@@ -13,7 +13,11 @@ try {
     readNote: (...args: Parameters<ReadNote>) => ipcRenderer.invoke('readNote', ...args),
     writeNote: (...args: Parameters<WriteNote>) => ipcRenderer.invoke('writeNote', ...args),
     createNote: (...args: Parameters<CreateNote>) => ipcRenderer.invoke('createNote', ...args),
-    deleteNote: (...args: Parameters<DeleteNote>) => ipcRenderer.invoke('deleteNote', ...args)
+    deleteNote: (...args: Parameters<DeleteNote>) => ipcRenderer.invoke('deleteNote', ...args),
+    isMac: () => ipcRenderer.invoke('get-is-mac'),
+    closeApp: () => ipcRenderer.send('close-app'),
+    minimizeWindow: () => ipcRenderer.send('minimize-window'),
+    maximizeOrRestoreWindow: () => ipcRenderer.send('maximize-restore-window')
   })
 } catch (error) {
   console.error(error)
